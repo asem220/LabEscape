@@ -28,7 +28,6 @@ public class GameInterface : MonoBehaviour
     private bool paused;
     private bool capturing;
     private bool leaving;
-    private FoodPickup[] rations;
     private InputAction pauseAction;
     private InputAction eatAction;
 
@@ -45,8 +44,8 @@ public class GameInterface : MonoBehaviour
 
     private void EatNearbyRation()
     {
-        if (paused || rations == null) return;
-        foreach (var ration in rations)
+        if (paused) return;
+        foreach (var ration in FoodPickup.Active)
             if (ration != null && ration.TryEat()) return;
     }
 
@@ -57,7 +56,6 @@ public class GameInterface : MonoBehaviour
         volumeSlider.SetValueWithoutNotify(AudioListener.volume);
         fullscreenToggle.SetIsOnWithoutNotify(Screen.fullScreen);
         pauseOverlay.SetActive(false);
-        rations = FindObjectsByType<FoodPickup>();
     }
 
     private void Update()
@@ -67,7 +65,7 @@ public class GameInterface : MonoBehaviour
         foodText.text = "СЫТОСТЬ  " + Mathf.CeilToInt(energy.Food) + " / 100";
         magicText.text = "МАГИЯ    " + Mathf.CeilToInt(energy.Magic) + " / 100";
         bool nearby = false;
-        foreach (var ration in rations)
+        foreach (var ration in FoodPickup.Active)
             if (ration != null && ration.IsNearby) { nearby = true; break; }
         foodHint.text = nearby ? "E — съесть паёк  (+35 еда / +45 магия)" : "Еда восстанавливает сытость и магию";
     }
