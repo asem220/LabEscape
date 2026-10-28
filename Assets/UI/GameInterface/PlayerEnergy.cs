@@ -11,8 +11,8 @@ public class PlayerEnergy : MonoBehaviour
 
     public float Food { get; private set; }
     public float Magic { get; private set; }
-    public float FoodFraction => Food / maxFood;
-    public float MagicFraction => Magic / maxMagic;
+    public float FoodFraction => maxFood > 0f ? Mathf.Clamp01(Food / maxFood) : 0f;
+    public float MagicFraction => maxMagic > 0f ? Mathf.Clamp01(Magic / maxMagic) : 0f;
 
     private void Awake()
     {
@@ -27,6 +27,7 @@ public class PlayerEnergy : MonoBehaviour
 
     public bool UseTelekinesis(float seconds)
     {
+        if (seconds <= 0f || float.IsNaN(seconds) || float.IsInfinity(seconds)) return false;
         float cost = magicPerSecond * seconds;
         if (Magic < cost || Magic <= 0f) return false;
         Magic = Mathf.Max(0f, Magic - cost);
@@ -36,7 +37,10 @@ public class PlayerEnergy : MonoBehaviour
 
     public bool Eat(float foodAmount, float magicAmount)
     {
+        if (foodAmount < 0f || magicAmount < 0f || float.IsNaN(foodAmount) || float.IsNaN(magicAmount)
+            || float.IsInfinity(foodAmount) || float.IsInfinity(magicAmount)) return false;
         if (Food >= maxFood && Magic >= maxMagic) return false;
+        if ((foodAmount <= 0f || Food >= maxFood) && (magicAmount <= 0f || Magic >= maxMagic)) return false;
         Food = Mathf.Min(maxFood, Food + foodAmount);
         Magic = Mathf.Min(maxMagic, Magic + magicAmount);
         return true;
