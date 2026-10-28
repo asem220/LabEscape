@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 // Only menu behaviour lives here; the layout is editable in MainMenu.unity.
 public class MainMenuController : MonoBehaviour
 {
-    [SerializeField] private string gameScene = "Laborotory";
+    [SerializeField] private string gameScene = "Laboratory";
     [SerializeField] private GameObject mainPanel;
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private UnityEngine.UI.Button playButton;

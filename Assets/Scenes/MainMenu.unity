@@ -3198,7 +3198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a51e340a49eaef4a9ed496564c0e439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuController
-  gameScene: Laboratory_Refined
+  gameScene: Laboratory
   mainPanel: {fileID: 910101324}
   settingsPanel: {fileID: 132267599}
   playButton: {fileID: 382626754}
