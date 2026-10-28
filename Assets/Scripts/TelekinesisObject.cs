@@ -27,6 +27,9 @@ public class TelekinesisObject : MonoBehaviour
     private BoxCollider2D boxCollider;
     private SpriteRenderer visual;
     private Color originalColor;
+    private InputAction pointInput;
+    private InputAction interactInput;
+    private InputAction throwInput;
 
     private Vector2 aim = Vector2.down;
     private bool held;
@@ -40,6 +43,10 @@ public class TelekinesisObject : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         visual = GetComponent<SpriteRenderer>();
         originalColor = visual.color;
+        // Each object owns its input; hiding one box cannot disable another box.
+        pointInput = pointAction != null ? pointAction.action.Clone() : null;
+        interactInput = interactAction != null ? interactAction.action.Clone() : null;
+        throwInput = throwAction != null ? throwAction.action.Clone() : null;
 
         body.bodyType = RigidbodyType2D.Dynamic;
         body.gravityScale = 0f;
@@ -51,9 +58,9 @@ public class TelekinesisObject : MonoBehaviour
 
     private void OnEnable()
     {
-        if (pointAction != null) pointAction.action.Enable();
-        if (interactAction != null) interactAction.action.Enable();
-        if (throwAction != null) throwAction.action.Enable();
+        pointInput?.Enable();
+        interactInput?.Enable();
+        throwInput?.Enable();
     }
 
     private void Update()
@@ -61,12 +68,12 @@ public class TelekinesisObject : MonoBehaviour
         if (Time.timeScale == 0f) return;
         if (held && energy != null && !energy.UseTelekinesis(Time.deltaTime)) Drop();
         if (player == null || worldCamera == null ||
-            pointAction == null || interactAction == null ||
-            throwAction == null)
+            pointInput == null || interactInput == null ||
+            throwInput == null)
             return;
 
         Vector2 screen =
-            pointAction.action.ReadValue<Vector2>();
+            pointInput.ReadValue<Vector2>();
 
         Vector3 cursor = worldCamera.ScreenToWorldPoint(
             new Vector3(screen.x, screen.y,
@@ -79,7 +86,7 @@ public class TelekinesisObject : MonoBehaviour
         if (direction.sqrMagnitude > 0.01f)
             aim = direction.normalized;
 
-        if (interactAction.action.WasPressedThisFrame())
+        if (interactInput.WasPressedThisFrame())
         {
             if (held)
             {
@@ -103,13 +110,13 @@ public class TelekinesisObject : MonoBehaviour
         if (!held)
             return;
 
-        if (throwAction.action.WasPressedThisFrame())
+        if (throwInput.WasPressedThisFrame())
         {
             charging = true;
             charge = 0f;
         }
 
-        if (charging && throwAction.action.IsPressed())
+        if (charging && throwInput.IsPressed())
         {
             charge = Mathf.Clamp01(
                 charge + Time.deltaTime /
@@ -120,7 +127,7 @@ public class TelekinesisObject : MonoBehaviour
         visual.color =
             Color.Lerp(Color.cyan, Color.blue, charge);
 
-        if (charging && throwAction.action.WasReleasedThisFrame())
+        if (charging && throwInput.WasReleasedThisFrame())
         {
             float impulse = Mathf.Lerp(
                 minThrowImpulse, maxThrowImpulse, charge
@@ -161,8 +168,15 @@ public class TelekinesisObject : MonoBehaviour
     {
         Drop();
 
-        if (pointAction != null) pointAction.action.Disable();
-        if (interactAction != null) interactAction.action.Disable();
-        if (throwAction != null) throwAction.action.Disable();
+        pointInput?.Disable();
+        interactInput?.Disable();
+        throwInput?.Disable();
+    }
+
+    private void OnDestroy()
+    {
+        pointInput?.Dispose();
+        interactInput?.Dispose();
+        throwInput?.Dispose();
     }
 }
