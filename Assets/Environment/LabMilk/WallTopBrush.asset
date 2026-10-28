@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d51784c254bc1e7498427c8cf5ae78ad, type: 3}
+  m_Name: WallTopBrush
+  m_EditorClassIdentifier: Assembly-CSharp::LabWallTopTile
+  shapes:
+  - {fileID: -884639372, guid: 3fb4b92ad63bcca4690c82ef7f290584, type: 3}
+  - {fileID: 1355646174, guid: 3fb4b92ad63bcca4690c82ef7f290584, type: 3}
+  - {fileID: -455857302, guid: 3fb4b92ad63bcca4690c82ef7f290584, type: 3}
+  - {fileID: -56491861, guid: 3fb4b92ad63bcca4690c82ef7f290584, type: 3}
+  - {fileID: -21749005, guid: 3fb4b92ad63bcca4690c82ef7f290584, type: 3}
+  - {fileID: 1207696132, guid: 3fb4b92ad63bcca4690c82ef7f290584, type: 3}
+  - {fileID: -166003675, guid: 3fb4b92ad63bcca4690c82ef7f290584, type: 3}
+  - {fileID: 930080013, guid: 3fb4b92ad63bcca4690c82ef7f290584, type: 3}
+  - {fileID: 1706367244, guid: 3fb4b92ad63bcca4690c82ef7f290584, type: 3}
+  - {fileID: -1871907471, guid: 3fb4b92ad63bcca4690c82ef7f290584, type: 3}
+  - {fileID: 1456494098, guid: 3fb4b92ad63bcca4690c82ef7f290584, type: 3}
+  - {fileID: 1609052752, guid: 3fb4b92ad63bcca4690c82ef7f290584, type: 3}
+  - {fileID: 1935806147, guid: 3fb4b92ad63bcca4690c82ef7f290584, type: 3}
+  - {fileID: 811993667, guid: 3fb4b92ad63bcca4690c82ef7f290584, type: 3}
+  - {fileID: -1233150207, guid: 3fb4b92ad63bcca4690c82ef7f290584, type: 3}
+  - {fileID: -1143494104, guid: 3fb4b92ad63bcca4690c82ef7f290584, type: 3}

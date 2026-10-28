@@ -1,0 +1,46 @@
+# Unity rebuilds these folders locally.
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Bb]uild/
+/[Bb]uilds/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+/Assets/Temp/
+/Assets/Temp.meta
+
+# Editors and generated solutions.
+/.vs/
+/.vscode/
+/.idea/
+*.csproj
+*.sln
+*.slnx
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.opendb
+*.VC.db
+*.tmp
+*.log
+*.stackdump
+sysinfo.txt
+
+# Local credentials and machine settings.
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.key
+*.keystore
+
+# Packaging metadata, never Unity content.
+.DS_Store
+Thumbs.db
+**/__MACOSX/
+**/__MACOSX.meta

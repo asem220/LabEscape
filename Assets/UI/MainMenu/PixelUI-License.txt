@@ -1,0 +1,15 @@
+License: ManaFrame Asset Pack - Simple 2D Pixel UI Pack
+
+You are allowed to:
+- Use these assets in commercial and non-commercial games
+- Modify and combine them with other assets
+- Share screenshots and videos of your project using these assets
+
+You are NOT allowed to:
+- Resell or redistribute these assets as-is or slightly modified
+- Use the assets in NFTs or AI training datasets
+
+Credit is appreciated, but not required.
+If you do credit, use: "Assets by ManaFrame – https://manaframe.itch.io"
+
+© 2025 ManaFrame – All rights reserved.
