@@ -1,0 +1,33 @@
+{
+  "rounds": [
+    {
+      "round": 1,
+      "play": true,
+      "pauseCycles": 3,
+      "settings": true,
+      "resources": true,
+      "returnToMenu": true,
+      "exit": false
+    },
+    {
+      "round": 2,
+      "play": true,
+      "pauseCycles": 3,
+      "settings": true,
+      "resources": true,
+      "returnToMenu": true,
+      "exit": false
+    },
+    {
+      "round": 3,
+      "play": true,
+      "pauseCycles": 3,
+      "settings": true,
+      "resources": true,
+      "returnToMenu": true,
+      "exit": true
+    }
+  ],
+  "framesAdvanced": 197,
+  "success": true
+}

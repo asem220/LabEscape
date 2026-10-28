@@ -1,0 +1,12 @@
+{
+  "passed": [
+    "Menu Escape",
+    "WASD movement",
+    "Eat key",
+    "Pickup and throw",
+    "Pause keys"
+  ],
+  "straightDistance": 0.7199993,
+  "diagonalDistance": 0.720001042,
+  "success": true
+}

@@ -1,0 +1,41 @@
+{
+  "scenes": [
+    {
+      "path": "Assets/Scenes/Laboratory.unity",
+      "missingScripts": 0,
+      "missingReferences": 0,
+      "buttons": 5
+    },
+    {
+      "path": "Assets/Scenes/Laborotory.unity",
+      "missingScripts": 0,
+      "missingReferences": 0,
+      "buttons": 5
+    },
+    {
+      "path": "Assets/Scenes/MainMenu.unity",
+      "missingScripts": 0,
+      "missingReferences": 0,
+      "buttons": 4
+    },
+    {
+      "path": "Assets/Scenes/MilkWallStudy.unity",
+      "missingScripts": 0,
+      "missingReferences": 0,
+      "buttons": 5
+    },
+    {
+      "path": "Assets/Scenes/SampleScene.unity",
+      "missingScripts": 0,
+      "missingReferences": 0,
+      "buttons": 0
+    }
+  ],
+  "buildScenes": [
+    "Assets/Scenes/MainMenu.unity",
+    "Assets/Scenes/Laboratory.unity"
+  ],
+  "exitTriggers": 1,
+  "activeRations": 0,
+  "errors": []
+}

@@ -1,0 +1,14 @@
+{
+  "passes": [
+    "Negative magic duration rejected",
+    "Negative food rejected",
+    "Empty food not consumed",
+    "Magic costs food",
+    "Food restores magic",
+    "Full resources do not consume food",
+    "Insufficient magic rejected",
+    "New food works with interact key",
+    "Disabling one box keeps other input enabled"
+  ],
+  "failures": []
+}
