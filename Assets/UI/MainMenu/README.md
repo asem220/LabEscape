@@ -2,7 +2,7 @@
 
 Откройте Assets/Scenes/MainMenu.unity и нажмите Play.
 
-- Играть: загружает существующую сцену Laborotory.
+- Играть: загружает сцену Laboratory.
 - Настройки: громкость и полный экран; значения сохраняются автоматически.
 - Назад или Escape: закрывает настройки.
 - Выход: закрывает приложение; в редакторе останавливает Play Mode.
@@ -16,5 +16,5 @@ Canvas: Scale With Screen Size, 1280 x 720, Expand.
 из Free-Basic-Pixel-Art-UI-for-RPG и TextBoxBigDark.png из 2DPixelUIPack.
 Лицензии наборов находятся рядом. Шрифт Consolas используется для кириллицы.
 
-В списке сборки MainMenu стоит первой, Laborotory второй.
+В списке сборки MainMenu стоит первой, Laboratory второй.
 Существующие сцены SampleScene и Laborotory сохранены без изменений.
