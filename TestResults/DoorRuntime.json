@@ -1,0 +1,22 @@
+{
+  "doors": 11,
+  "crossings": 22,
+  "openedBothSides": true,
+  "closedAfterLeaving": true,
+  "pauseChecked": true,
+  "framesAdvanced": 2852,
+  "passed": [
+    "Canteen Door",
+    "Garden Door",
+    "Experiment Door",
+    "Preparation Door",
+    "Control Door",
+    "West Door",
+    "Middle Door",
+    "East Door",
+    "Ward Door",
+    "Exit Door",
+    "Airlock Door"
+  ],
+  "errors": 0
+}

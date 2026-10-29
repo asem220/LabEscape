@@ -16,7 +16,7 @@ public static class PaletteReview
     public static object Main()
     {
         int cells=0;
-        foreach(var path in new[]{Walls+"/WallFaces.png",Walls+"/Pillars.png",Doors+"/DoorTiles.png"})
+        foreach(var path in new[]{Walls+"/WallFaces.png",Walls+"/Pillars.png"})
             foreach(var sprite in AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>())
             {
                 if(sprite.rect.width!=32||sprite.rect.height!=32||sprite.pivot!=new Vector2(16,16)||sprite.pixelsPerUnit!=32)
@@ -66,7 +66,7 @@ public static class PaletteReview
             }
         for(int y=4;y<=51;y++)for(int x=32;x<=127;x++)
             if(open.texture.GetPixel((int)open.rect.x+x,(int)open.rect.y+y).a!=0)throw new Exception("Open door blocks the passage visually");
-        foreach(var palettePath in new[]{Walls+"/Palettes/Laboratory Walls.prefab",Doors+"/Palettes/Door States.prefab"})
+        foreach(var palettePath in new[]{Walls+"/Palettes/Laboratory Walls.prefab"})
         {
             if(!AssetDatabase.LoadAllAssetsAtPath(palettePath).OfType<GridPalette>().Any())throw new Exception("Native palette data missing");
             var palette=PrefabUtility.LoadPrefabContents(palettePath);
@@ -122,6 +122,8 @@ public static class PaletteReview
         {
             int y=10-i*4;
             foreach(int x in new[]{10,11,15,16,17})tops.SetTile(new Vector3Int(x,y,0),brush);
+            var join=AssetDatabase.LoadAssetAtPath<HospitalWallTile>(Doors+"/Horizontal Join.asset");
+            tops.SetTile(new Vector3Int(11,y,0),join);tops.SetTile(new Vector3Int(15,y,0),join);
             var door=UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(Doors+"/Prefabs/"+states[i]+".prefab"));
             door.transform.SetParent(root.transform,false);door.transform.localPosition=new Vector3(13.5f,y,-.1f);
         }

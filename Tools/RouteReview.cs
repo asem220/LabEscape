@@ -12,7 +12,8 @@ public static class RouteReview
         foreach(var p in floor.cellBounds.allPositionsWithin)
         {
             if(!floor.HasTile(p))continue;
-            if(!Physics2D.OverlapCapsuleAll(new Vector2(p.x+.5f,p.y),new Vector2(.66f,.82f),CapsuleDirection2D.Vertical,0).Any(c=>!c.isTrigger&&c.gameObject!=player))passable.Add(new Vector2Int(p.x,p.y));
+            // Automatic doors are traversable; DoorRuntime verifies their actual opening and collision.
+            if(!Physics2D.OverlapCapsuleAll(new Vector2(p.x+.5f,p.y),new Vector2(.66f,.82f),CapsuleDirection2D.Vertical,0).Any(c=>!c.isTrigger&&c.gameObject!=player&&c.GetComponent<LabDoor>()==null))passable.Add(new Vector2Int(p.x,p.y));
         }
         var queue=new Queue<Vector2Int>();var visited=new HashSet<Vector2Int>();var start=new Vector2Int(10,4);queue.Enqueue(start);visited.Add(start);
         while(queue.Count>0){var p=queue.Dequeue();foreach(var d in new[]{Vector2Int.up,Vector2Int.down,Vector2Int.left,Vector2Int.right}){var n=p+d;if(passable.Contains(n)&&visited.Add(n))queue.Enqueue(n);}}
