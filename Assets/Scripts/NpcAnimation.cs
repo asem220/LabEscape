@@ -24,6 +24,11 @@ public class NpcAnimation : MonoBehaviour
         facing = initialFacing;
     }
 
+    private void OnEnable()
+    {
+        currentState = null;
+    }
+
     private void Start()
     {
         ShowMovement(Vector2.zero);
@@ -54,7 +59,7 @@ public class NpcAnimation : MonoBehaviour
 
     private void Play(string state)
     {
-        if (state == currentState) return;
+        if (state == currentState || animator == null || !animator.isActiveAndEnabled) return;
         animator.Play(state, 0, 0f);
         currentState = state;
     }
