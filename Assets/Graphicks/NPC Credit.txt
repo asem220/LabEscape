@@ -1,0 +1,4 @@
+Original character template: Eris Esra
+https://erisesra.itch.io/character-templates-pack
+
+Guard and Doctor sprites are outfit edits of the 16x32 character template. The source license permits use in games. The sprites are sliced as 32x32 cells.
