@@ -38,12 +38,12 @@ public static class WallReview
         var faceSprites=AssetDatabase.LoadAllAssetsAtPath(Folder+"/WallFaces.png").OfType<Sprite>().OrderBy(s=>s.name).ToArray();
         var faceTexture=AssetDatabase.LoadAssetAtPath<Texture2D>(Folder+"/WallFaces.png");
         int faceComparisons=0;
-        foreach(int a in new[]{0,1})foreach(int b in new[]{0,2})for(int y=0;y<48;y++)
+        for(int row=0;row<2;row++)foreach(int a in new[]{0,1})foreach(int b in new[]{0,2})for(int y=0;y<32;y++)
         {
-            var ar=faceSprites[a].rect;var br=faceSprites[b].rect;faceComparisons++;
+            var ar=faceSprites[a+row*4].rect;var br=faceSprites[b+row*4].rect;faceComparisons++;
             if(!Same(faceTexture.GetPixel((int)ar.x+31,(int)ar.y+y),faceTexture.GetPixel((int)br.x,(int)br.y+y)))
                 throw new Exception("Front wall seam mismatch.");
         }
-        return new {variants=sprites.Length,neighbourhoodPatterns=512,checkedPixels,seamErrors=errors,faceComparisons,faceHeight=48,filledCornersSupported=true};
+        return new {variants=sprites.Length,neighbourhoodPatterns=512,checkedPixels,seamErrors=errors,faceComparisons,faceTileSize="32x32",faceRows=2,filledCornersSupported=true};
     }
 }
