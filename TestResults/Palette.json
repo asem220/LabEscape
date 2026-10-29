@@ -1,0 +1,10 @@
+{
+  "gridSprites": 76,
+  "reconstructedPillarPixels": 8192,
+  "pairedWalls": 115,
+  "faceSeamChecks": 256,
+  "doorFrameChecks": 6528,
+  "doorFrames": 6,
+  "cornerGaps": 0,
+  "errors": 0
+}
