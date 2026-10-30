@@ -45,4 +45,11 @@ public class PlayerEnergy : MonoBehaviour
         Magic = Mathf.Min(maxMagic, Magic + magicAmount);
         return true;
     }
+
+    // After a guard returns the player, keep enough resources to stand up.
+    public void RestoreMinimum(float food, float magic)
+    {
+        Food = Mathf.Min(maxFood, Mathf.Max(Food, food));
+        Magic = Mathf.Min(maxMagic, Mathf.Max(Magic, magic));
+    }
 }

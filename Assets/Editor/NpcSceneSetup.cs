@@ -44,7 +44,7 @@ public static class NpcSceneSetup
         Transform[] guardPoints = MakePoints(guardRoute, new[]
         {
             new Vector2(5f, 10f), new Vector2(5f, 30f),
-            new Vector2(63.5f, 30f), new Vector2(63.5f, 10f)
+            new Vector2(64.5f, 30f), new Vector2(64.5f, 10f)
         });
 
         Transform doctorRoute = EnsureChild(map.transform, "Doctor Route");

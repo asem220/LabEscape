@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     private string facing = "Down";
     private string currentAnimation;
 
+    public string Facing => facing;
+
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();

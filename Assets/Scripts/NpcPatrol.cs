@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(CapsuleCollider2D), typeof(NpcAnimation))]
@@ -12,6 +13,11 @@ public class NpcPatrol : MonoBehaviour
     private NpcAnimation animation;
     private int targetPoint;
     private float waitLeft;
+    private readonly List<Vector2> detour = new List<Vector2>();
+    private int detourPoint;
+    private Vector2 lastPosition;
+    private float lastProgressCheck;
+    private bool rejoinOnEnable;
 
     private void Awake()
     {
@@ -27,6 +33,14 @@ public class NpcPatrol : MonoBehaviour
 
         if (points != null && points.Length > 0)
             targetPoint = Mathf.Clamp(firstPoint, 0, points.Length - 1);
+        ResetProgress();
+    }
+
+    private void OnEnable()
+    {
+        if (!rejoinOnEnable || body == null) return;
+        rejoinOnEnable = false;
+        RejoinRoute();
     }
 
     private void FixedUpdate()
@@ -34,6 +48,7 @@ public class NpcPatrol : MonoBehaviour
         if (points == null || points.Length == 0 || animation.IsAttacking)
         {
             Stop();
+            ResetProgress();
             return;
         }
 
@@ -41,15 +56,25 @@ public class NpcPatrol : MonoBehaviour
         {
             waitLeft -= Time.fixedDeltaTime;
             Stop();
+            ResetProgress();
             return;
         }
 
-        Vector2 toTarget = (Vector2)points[targetPoint].position - body.position;
-        if (toTarget.sqrMagnitude < 0.01f)
+        while (detourPoint < detour.Count &&
+               Vector2.Distance(body.position, detour[detourPoint]) < 0.18f)
+            detourPoint++;
+
+        if (detourPoint >= detour.Count) detour.Clear();
+        Vector2 destination = detour.Count > 0
+            ? detour[detourPoint]
+            : (Vector2)points[targetPoint].position;
+        Vector2 toTarget = destination - body.position;
+        if (detour.Count == 0 && toTarget.sqrMagnitude < 0.02f)
         {
             targetPoint = (targetPoint + 1) % points.Length;
             waitLeft = waitSeconds;
             Stop();
+            ResetProgress();
             return;
         }
 
@@ -57,6 +82,56 @@ public class NpcPatrol : MonoBehaviour
         Vector2 velocity = toTarget.normalized * Mathf.Min(speed, toTarget.magnitude / Time.fixedDeltaTime);
         body.linearVelocity = velocity;
         animation.ShowMovement(velocity);
+        CheckForStall();
+    }
+
+    // Called after combat or after carrying the player back to the ward.
+    public void RejoinRoute()
+    {
+        if (body == null || points == null || points.Length == 0) return;
+
+        float shortest = float.PositiveInfinity;
+        var candidate = new List<Vector2>();
+        var best = new List<Vector2>();
+        for (int i = 0; i < points.Length; i++)
+        {
+            if (!LabPathfinder.TryFind(body.position, points[i].position, candidate)) continue;
+            float length = 0f;
+            Vector2 previous = body.position;
+            foreach (Vector2 waypoint in candidate)
+            {
+                length += Vector2.Distance(previous, waypoint);
+                previous = waypoint;
+            }
+            if (length >= shortest) continue;
+            shortest = length;
+            targetPoint = i;
+            best.Clear();
+            best.AddRange(candidate);
+        }
+        detour.Clear();
+        detour.AddRange(best);
+        detourPoint = 0;
+        ResetProgress();
+    }
+
+    private void CheckForStall()
+    {
+        if (Time.time - lastProgressCheck < 0.8f) return;
+        if (Vector2.Distance(body.position, lastPosition) < 0.1f)
+        {
+            detour.Clear();
+            if (LabPathfinder.TryFind(body.position, points[targetPoint].position, detour))
+                detourPoint = 0;
+        }
+        ResetProgress();
+    }
+
+    private void ResetProgress()
+    {
+        if (body == null) return;
+        lastPosition = body.position;
+        lastProgressCheck = Time.time;
     }
 
     private void Stop()
@@ -67,6 +142,9 @@ public class NpcPatrol : MonoBehaviour
 
     private void OnDisable()
     {
+        rejoinOnEnable = true;
+        detour.Clear();
+        detourPoint = 0;
         Stop();
     }
 }

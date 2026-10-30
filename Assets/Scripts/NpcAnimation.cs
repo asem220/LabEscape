@@ -57,6 +57,12 @@ public class NpcAnimation : MonoBehaviour
         Play("Attack " + facing);
     }
 
+    public void CancelAttack()
+    {
+        attackEndTime = 0f;
+        ShowMovement(Vector2.zero);
+    }
+
     private void Play(string state)
     {
         if (state == currentState || animator == null || !animator.isActiveAndEnabled) return;

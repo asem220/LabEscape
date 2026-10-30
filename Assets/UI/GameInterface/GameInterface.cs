@@ -9,9 +9,12 @@ public class GameInterface : MonoBehaviour
 {
     [Header("HUD")]
     [SerializeField] private PlayerEnergy energy;
+    [SerializeField] private PlayerCondition condition;
+    [SerializeField] private UnityEngine.UI.Image healthFill;
     [SerializeField] private UnityEngine.UI.Image foodFill;
     [SerializeField] private UnityEngine.UI.Image magicFill;
     [SerializeField] private TextMeshProUGUI foodText;
+    [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI magicText;
     [SerializeField] private TextMeshProUGUI foodHint;
     [Header("Pause")]
@@ -44,7 +47,7 @@ public class GameInterface : MonoBehaviour
 
     private void EatNearbyRation()
     {
-        if (paused) return;
+        if (paused || (condition != null && condition.IsUnconscious)) return;
         foreach (var ration in FoodPickup.Active)
             if (ration != null && ration.TryEat()) return;
     }
@@ -60,6 +63,8 @@ public class GameInterface : MonoBehaviour
 
     private void Update()
     {
+        healthFill.fillAmount = condition.HealthFraction;
+        healthText.text = "ЗДОРОВЬЕ " + Mathf.CeilToInt(condition.Health) + " / 100";
         foodFill.fillAmount = energy.FoodFraction;
         magicFill.fillAmount = energy.MagicFraction;
         foodText.text = "СЫТОСТЬ  " + Mathf.CeilToInt(energy.Food) + " / 100";
@@ -67,7 +72,10 @@ public class GameInterface : MonoBehaviour
         bool nearby = false;
         foreach (var ration in FoodPickup.Active)
             if (ration != null && ration.IsNearby) { nearby = true; break; }
-        foodHint.text = nearby ? "E — съесть паёк  (+35 еда / +45 магия)" : "Еда восстанавливает сытость и магию";
+        foodHint.text = condition.IsUnconscious ? "Охрана возвращает вас в палату" :
+            nearby ? "E — съесть паёк  (+35 еда / +45 магия)" :
+            condition.InCombatZone ? "F — оглушить охранника (расход магии)" :
+            "Еда восстанавливает сытость и магию";
     }
 
     private void TogglePause()
