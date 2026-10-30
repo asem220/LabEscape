@@ -22,12 +22,24 @@ public class PlayerCondition : MonoBehaviour
     private Transform carrier;
     private Rigidbody2D carrierBody;
     private Vector2 carryOffset = Vector2.down * 0.65f;
+    private GuardCombat[] guards;
 
     public float Health { get; private set; }
     public float MaxHealth => maxHealth;
     public float HealthFraction => Mathf.Clamp01(Health / maxHealth);
     public bool IsUnconscious { get; private set; }
     public bool InCombatZone => combatZone != null && combatZone.Contains(transform.position);
+    public bool CanStun => InCombatZone || IsChased;
+    private bool IsChased
+    {
+        get
+        {
+            if (guards == null) return false;
+            foreach (GuardCombat guard in guards)
+                if (guard != null && guard.enabled && guard.IsChasing) return true;
+            return false;
+        }
+    }
 
     private void Awake()
     {
@@ -37,6 +49,7 @@ public class PlayerCondition : MonoBehaviour
         animator = GetComponent<Animator>();
         Health = maxHealth;
         startingPosition = transform.position;
+        guards = FindObjectsByType<GuardCombat>();
         stunAction = new InputAction("Stun", InputActionType.Button, "<Keyboard>/f");
         stunAction.performed += _ => StunNearbyGuard();
     }
@@ -70,12 +83,13 @@ public class PlayerCondition : MonoBehaviour
 
     private void StunNearbyGuard()
     {
-        if (IsUnconscious || !InCombatZone || Time.time < nextStunTime) return;
+        if (IsUnconscious || !CanStun || Time.time < nextStunTime) return;
         GuardCombat nearest = null;
         float distance = 2f;
-        foreach (GuardCombat guard in FindObjectsByType<GuardCombat>())
+        foreach (GuardCombat guard in guards)
         {
-            if (!combatZone.Contains(guard.transform.position) || !guard.enabled) continue;
+            if (guard == null || !guard.enabled ||
+                (!combatZone.Contains(guard.transform.position) && !guard.IsChasing)) continue;
             float current = Vector2.Distance(transform.position, guard.transform.position);
             if (current >= distance) continue;
             nearest = guard;

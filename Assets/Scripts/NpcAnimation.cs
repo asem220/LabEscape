@@ -63,6 +63,11 @@ public class NpcAnimation : MonoBehaviour
         ShowMovement(Vector2.zero);
     }
 
+    public void SetRunning(bool running)
+    {
+        if (animator != null) animator.speed = running ? 1.65f : 1f;
+    }
+
     private void Play(string state)
     {
         if (state == currentState || animator == null || !animator.isActiveAndEnabled) return;

@@ -74,7 +74,7 @@ public class GameInterface : MonoBehaviour
             if (ration != null && ration.IsNearby) { nearby = true; break; }
         foodHint.text = condition.IsUnconscious ? "Охрана возвращает вас в палату" :
             nearby ? "E — съесть паёк  (+35 еда / +45 магия)" :
-            condition.InCombatZone ? "F — оглушить охранника (расход магии)" :
+            condition.CanStun ? "F — оглушить охранника (расход магии)" :
             "Еда восстанавливает сытость и магию";
     }
 

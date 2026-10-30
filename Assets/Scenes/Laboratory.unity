@@ -124655,8 +124655,11 @@ MonoBehaviour:
   player: {fileID: 1208378420}
   combatZone: {fileID: 883900134}
   sight: 5
-  attackRange: 1.25
-  chaseSpeed: 2.4
+  attackRange: 1.7
+  runSpeed: 8
+  loseDistance: 18
+  chaseOutsideSeconds: 10
+  repathSeconds: 0.35
   damage: 20
   attackCooldown: 1.2
 --- !u!1 &1238207455
@@ -189828,8 +189831,11 @@ MonoBehaviour:
   player: {fileID: 1208378420}
   combatZone: {fileID: 883900134}
   sight: 5
-  attackRange: 1.25
-  chaseSpeed: 2.4
+  attackRange: 1.7
+  runSpeed: 8
+  loseDistance: 18
+  chaseOutsideSeconds: 10
+  repathSeconds: 0.35
   damage: 20
   attackCooldown: 1.2
 --- !u!1 &1421872893
